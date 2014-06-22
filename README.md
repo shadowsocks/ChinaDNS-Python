@@ -9,7 +9,11 @@ Install
 -------
 
     pip install chinadns
-    
+
+or
+
+    easy_intall chinadns
+
 Usage
 -----
 
