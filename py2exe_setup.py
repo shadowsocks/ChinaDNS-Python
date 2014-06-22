@@ -1,10 +1,15 @@
 from distutils.core import setup
 import sys
 import os
-import py2exe # require
+
+# require import
+import py2exe
 
 # require shadowsocks
 sspath = os.path.abspath(os.path.join("..", "shadowsocks"))
+if not os.path.isdir(sspath):
+    raise IOError("require shadowsocks")
+
 sys.path.append(sspath)
 
 with open('README.rst') as f:
@@ -16,14 +21,18 @@ console = [os.path.join("chinadns", "dnsrelay.py")]
 
 setup(
     name="chinadns",
-    version="0.1.6",
     license="MIT",
     description="A DNS forwarder that ignore incorrect responses",
     author='clowwindy',
     author_email='clowwindy42@gmail.com',
     url='https://github.com/clowwindy/ChinaDNS',
     packages=['chinadns'],
-    options={'py2exe': {'includes': includes}},
+    data_files=["README.md", "LICENSE", "config.json", "CHANGES"],
+    options={'py2exe': {
+        'includes': includes,
+        'dll_excludes': ['w9xpopen.exe'],
+        'bundle_files': 1,
+        'compressed': True}},
     console=console,
     classifiers=[
         'License :: OSI Approved :: MIT License',
