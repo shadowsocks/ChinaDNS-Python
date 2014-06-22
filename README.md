@@ -12,7 +12,7 @@ Install
 
 or
 
-    easy_intall chinadns
+    easy_install chinadns
 
 Usage
 -----
