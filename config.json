@@ -1,0 +1,9 @@
+{
+    "server":"my_server_ip",
+    "server_port":8388,
+    "local_address": "127.0.0.1",
+    "local_port":53,
+    "password":null,
+    "method":"aes-256-cfb",
+    "dns":"8.8.8.8"
+}
