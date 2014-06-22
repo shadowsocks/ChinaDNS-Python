@@ -294,10 +294,10 @@ def main():
         tcprelay.add_to_loop(loop)
         loop.run()
     except (OSError, IOError) as e:
+        logging.error(e)
         if eventloop.errno_from_exception(e) == errno.EACCES:
-            logging.error(e)
             logging.info('please use sudo to run this program')
-            exit(1)
+        exit(1)
 
 
 if __name__ == '__main__':
