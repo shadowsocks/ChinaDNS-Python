@@ -1,3 +1,6 @@
+0.1.6
+- Fix ERRNO 10054 on Windows
+
 0.1.5
 - Output error when port is used
 - Handle POLL_HUP
