@@ -8,11 +8,13 @@ A DNS forwarder that ignores incorrect(you know it) responses.
 Install
 -------
 
-    pip install chinadns
+* Linux / OS X
 
-or
+    * ```pip install chinadns```
 
-    easy_install chinadns
+* Windows
+
+    * [Download]
 
 Usage
 -----
@@ -68,6 +70,7 @@ Mailing list: http://groups.google.com/group/shadowsocks
 
 
 [Build Status]:    https://img.shields.io/travis/clowwindy/ChinaDNS/master.svg?style=flat
+[Download]:        http://sourceforge.net/projects/shadowsocksgui/files/dist/ChinaDNS-win32-0.1.4.rar/download
 [Issue Tracker]:   https://github.com/clowwindy/ChinaDNS/issues?state=open
 [PyPI]:            https://pypi.python.org/pypi/chinadns
 [PyPI version]:    https://img.shields.io/pypi/v/chinadns.svg?style=flat
