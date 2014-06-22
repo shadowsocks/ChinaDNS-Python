@@ -21,12 +21,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import sys
 import time
 import socket
 import errno
 import logging
+
+info = sys.version_info
+if not (info[0] == 2 and info[1] >= 7):
+    print 'Python 2.7 required'
+    sys.exit(1)
+
+import argparse
 from shadowsocks import eventloop, asyncdns, lru_cache
-from shadowsocks import utils as shadowsocks_utils
 
 
 BUF_SIZE = 16384
@@ -262,24 +269,37 @@ class TCPDNSRelay(DNSRelay):
 
 
 def main():
-    shadowsocks_utils.check_python()
+
 
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s %(levelname)-8s %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S', filemode='a+')
-    config = {}
-    config['local_address'] = config.get('local_address', '127.0.0.1')
-    config['dns'] = config.get('dns', '8.8.8.8')
+
+    parser = argparse.ArgumentParser(description='Forward DNS requests.')
+    parser.add_argument('-b', '--local_address', metavar='BIND_ADDR', type=str,
+                        help='address that listens, default: 127.0.0.1',
+                        default='127.0.0.1')
+    parser.add_argument('-s', '--dns', metavar='DNS', type=str,
+                        help='DNS server to use, default: 8.8.8.8',
+                        default='8.8.8.8')
+
+    config = vars(parser.parse_args())
+
     logging.info("starting dns at %s:%d" % (config['local_address'], 53))
 
     loop = eventloop.EventLoop()
 
-    udprelay = UDPDNSRelay(config)
-    udprelay.add_to_loop(loop)
-    tcprelay = TCPDNSRelay(config)
-    tcprelay.add_to_loop(loop)
-
-    loop.run()
+    try:
+        udprelay = UDPDNSRelay(config)
+        udprelay.add_to_loop(loop)
+        tcprelay = TCPDNSRelay(config)
+        tcprelay.add_to_loop(loop)
+        loop.run()
+    except (OSError, IOError) as e:
+        if eventloop.errno_from_exception(e) == errno.EACCES:
+            logging.error(e)
+            logging.info('please use sudo to run this program')
+            exit(1)
 
 
 if __name__ == '__main__':
