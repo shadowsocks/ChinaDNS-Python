@@ -16,7 +16,7 @@ console = [os.path.join("chinadns", "dnsrelay.py")]
 
 setup(
     name="chinadns",
-    version="0.1.4",
+    version="0.1.6",
     license="MIT",
     description="A DNS forwarder that ignore incorrect responses",
     author='clowwindy',
