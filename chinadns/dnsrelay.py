@@ -316,7 +316,7 @@ def main():
         logging.error(e)
         if eventloop.errno_from_exception(e) == errno.EACCES:
             logging.info('please use sudo to run this program')
-        exit(1)
+        sys.exit(1)
 
 
 if __name__ == '__main__':
