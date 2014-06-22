@@ -216,7 +216,7 @@ class TCPDNSRelay(DNSRelay):
 
     def _handle_local(self, local, event):
         remote = self._local_to_remote[local]
-        if event & eventloop.POLL_ERR:
+        if event & (eventloop.POLL_ERR | eventloop.POLL_HUP):
             self._destroy(local, remote)
         elif event & eventloop.POLL_IN:
             try:
@@ -231,7 +231,7 @@ class TCPDNSRelay(DNSRelay):
 
     def _handle_remote(self, remote, event):
         local = self._remote_to_local[remote]
-        if event & eventloop.POLL_ERR:
+        if event & (eventloop.POLL_ERR | eventloop.POLL_HUP):
             self._destroy(local, remote)
         elif event & eventloop.POLL_OUT:
             self._loop.modify(remote, eventloop.POLL_IN)
