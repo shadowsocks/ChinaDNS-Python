@@ -8,7 +8,7 @@ setup(
     name="chinadns",
     version="0.1.0",
     license='MIT',
-    description="A DNS forwarder that ignore corrupted responses",
+    description="A DNS forwarder that ignore incorrect responses",
     author='clowwindy',
     author_email='clowwindy42@gmail.com',
     url='https://github.com/clowwindy/ChinaDNS',
