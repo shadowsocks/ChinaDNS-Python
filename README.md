@@ -5,38 +5,41 @@ ChinaDNS
 
 A DNS forwarder that ignores incorrect(you know it) responses.
 
-ChinaDNS creates a DNS server at localhost.
-
 Install
 -------
 
-#### OS X:
-
-    pip install .
     pip install chinadns
 
-#### Windows:
+or
 
-    easy_install pip
-    pip install chinadns
-
-#### Debian / Ubuntu:
-
-    apt-get install python-pip
-    pip install chinadns
-
-#### CentOS:
-
-    yum install python-setuptools
-    easy_install pip
-    pip install chinadns
+    easy_intall chinadns
 
 Usage
 -----
 
-Run `sudo chinadns` on your local machine.
+Run `sudo chinadns` on your local machine. ChinaDNS creates a DNS server at `127.0.0.1:53`.
 
-Set your DNS to 127.0.0.1.
+Set your DNS to 127.0.0.1 and you're done.
+
+    $ nslookup www.youtube.com
+    Server:		127.0.0.1
+    Address:	127.0.0.1#53
+    
+    Non-authoritative answer:
+    www.youtube.com	canonical name = youtube-ui.l.google.com.
+    youtube-ui.l.google.com	canonical name = youtube-ui-china.l.google.com.
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.102
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.101
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.113
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.100
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.139
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.138
 
 License
 -------
