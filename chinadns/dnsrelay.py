@@ -269,7 +269,7 @@ def main():
                         datefmt='%Y-%m-%d %H:%M:%S', filemode='a+')
     config = {}
     config['local_address'] = config.get('local_address', '127.0.0.1')
-    config['dns'] = config.get('dns', '114.114.114.114')
+    config['dns'] = config.get('dns', '8.8.8.8')
     logging.info("starting dns at %s:%d" % (config['local_address'], 53))
 
     loop = eventloop.EventLoop()
