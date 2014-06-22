@@ -1,6 +1,7 @@
 from distutils.core import setup
 import sys
 import os
+import py2exe # require
 
 # require shadowsocks
 sspath = os.path.abspath(os.path.join("..", "shadowsocks"))
