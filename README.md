@@ -29,7 +29,7 @@ Install
 
     yum install python-setuptools
     easy_install pip
-    pip install shadowdns
+    pip install chinadns
 
 Usage
 -----
