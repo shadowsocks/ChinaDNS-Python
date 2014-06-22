@@ -21,32 +21,25 @@ Run `sudo chinadns` on your local machine. ChinaDNS creates a DNS server at `127
 
 Set your DNS to 127.0.0.1 and you're done.
 
-    $ dig @127.0.0.1 www.youtube.com
+    $ nslookup www.youtube.com
+    Server:		127.0.0.1
+    Address:	127.0.0.1#53
     
-    ; <<>> DiG 9.8.3-P1 <<>> @127.0.0.1 www.youtube.com
-    ; (1 server found)
-    ;; global options: +cmd
-    ;; Got answer:
-    ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 22375
-    ;; flags: qr rd ra; QUERY: 1, ANSWER: 8, AUTHORITY: 0, ADDITIONAL: 0
-    
-    ;; QUESTION SECTION:
-    ;www.youtube.com.		IN	A
-    
-    ;; ANSWER SECTION:
-    www.youtube.com.	21599	IN	CNAME	youtube-ui.l.google.com.
-    youtube-ui.l.google.com. 899	IN	CNAME	youtube-ui-china.l.google.com.
-    youtube-ui-china.l.google.com. 179 IN	A	173.194.72.102
-    youtube-ui-china.l.google.com. 179 IN	A	173.194.72.139
-    youtube-ui-china.l.google.com. 179 IN	A	173.194.72.113
-    youtube-ui-china.l.google.com. 179 IN	A	173.194.72.100
-    youtube-ui-china.l.google.com. 179 IN	A	173.194.72.138
-    youtube-ui-china.l.google.com. 179 IN	A	173.194.72.101
-    
-    ;; Query time: 264 msec
-    ;; SERVER: 127.0.0.1#53(127.0.0.1)
-    ;; WHEN: Sun Jun 22 12:58:41 2014
-    ;; MSG SIZE  rcvd: 194
+    Non-authoritative answer:
+    www.youtube.com	canonical name = youtube-ui.l.google.com.
+    youtube-ui.l.google.com	canonical name = youtube-ui-china.l.google.com.
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.102
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.101
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.113
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.100
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.139
+    Name:	youtube-ui-china.l.google.com
+    Address: 173.194.72.138
 
 License
 -------
