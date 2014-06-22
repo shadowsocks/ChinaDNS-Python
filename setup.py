@@ -11,8 +11,8 @@ setup(
     description="A DNS forwarder that ignore corrupted responses",
     author='clowwindy',
     author_email='clowwindy42@gmail.com',
-    url='https://github.com/clowwindy/shadowdns',
-    packages=['shadowdns'],
+    url='https://github.com/clowwindy/ChinaDNS',
+    packages=['chinadns'],
     package_data={
         'chinadns': ['README.rst', 'LICENSE', 'config.json']
     },
@@ -21,7 +21,7 @@ setup(
     ],
     entry_points="""
     [console_scripts]
-    ssdns = shadowdns.dnsrelay:main
+    chinadns = chinadns.dnsrelay:main
     """,
     classifiers=[
         'License :: OSI Approved :: MIT License',
