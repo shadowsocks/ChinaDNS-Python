@@ -1,5 +1,6 @@
-0.1.4
+0.1.5
 - Output error when port is used
+- Handle POLL_HUP
 
 0.1.3
 - Support -b listen address
