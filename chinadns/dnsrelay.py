@@ -63,11 +63,6 @@ class DNSRelay(object):
         self._local_addr = (config['local_address'], 53)
         self._remote_addr = (config['dns'], 53)
 
-        addrs = socket.getaddrinfo(self._remote_addr[0], 53, 0,
-                                   socket.SOCK_DGRAM, socket.SOL_UDP)
-        if not addrs:
-            raise Exception("can't get addrinfo for DNS address")
-
     def add_to_loop(self, loop):
         if self._loop:
             raise Exception('already add to loop')
@@ -85,7 +80,9 @@ class UDPDNSRelay(DNSRelay):
         self._id_to_addr = lru_cache.LRUCache(CACHE_TIMEOUT)
         self._local_sock = None
         self._remote_sock = None
+        self._create_sockets()
 
+    def _create_sockets(self):
         sockets = []
         for addr in (self._local_addr, self._remote_addr):
             addrs = socket.getaddrinfo(addr[0], addr[1], 0,
@@ -96,9 +93,16 @@ class UDPDNSRelay(DNSRelay):
             sock = socket.socket(af, socktype, proto)
             sock.setblocking(False)
             sockets.append(sock)
-
         self._local_sock, self._remote_sock = sockets
         self._local_sock.bind(self._local_addr)
+
+    def _rebuild_sockets(self):
+        self._id_to_addr.clear()
+        self._loop.remove(self._local_sock)
+        self._loop.remove(self._remote_sock)
+        self._local_sock.close()
+        self._remote_sock.close()
+        self._create_sockets()
 
     def add_to_loop(self, loop):
         DNSRelay.add_to_loop(self, loop)
@@ -107,7 +111,14 @@ class UDPDNSRelay(DNSRelay):
         loop.add(self._remote_sock, eventloop.POLL_IN)
 
     def _handle_local(self, sock):
-        data, addr = sock.recvfrom(BUF_SIZE)
+        try:
+            data, addr = sock.recvfrom(BUF_SIZE)
+        except (OSError, IOError) as e:
+            logging.error(e)
+            if eventloop.errno_from_exception(e) == errno.ECONNRESET:
+                # just for Windows lol
+                self._rebuild_sockets()
+            return
         header = asyncdns.parse_header(data)
         if header:
             try:
@@ -123,7 +134,14 @@ class UDPDNSRelay(DNSRelay):
                 logging.error(e)
 
     def _handle_remote(self, sock):
-        data, addr = sock.recvfrom(BUF_SIZE)
+        try:
+            data, addr = sock.recvfrom(BUF_SIZE)
+        except (OSError, IOError) as e:
+            logging.error(e)
+            if eventloop.errno_from_exception(e) == errno.ECONNRESET:
+                # just for Windows lol
+                self._rebuild_sockets()
+            return
         if data:
             try:
                 header = asyncdns.parse_header(data)
@@ -140,9 +158,11 @@ class UDPDNSRelay(DNSRelay):
                         del self._id_to_addr[req_id]
             except Exception as e:
                 import traceback
-
                 traceback.print_exc()
                 logging.error(e)
+                if eventloop.errno_from_exception(e) == errno.EACCES:
+                    # when we have changed our ip
+                    self._rebuild_sockets()
 
     def handle_events(self, events):
         for sock, fd, event in events:
