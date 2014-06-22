@@ -48,6 +48,22 @@ Set your DNS to 127.0.0.1 and you're done.
     Name:   youtube-ui-china.l.google.com
     Address: 173.194.72.138
 
+Advanced
+--------
+
+::
+
+    $ chinadns -h
+    usage: chinadns [-h] [-b BIND_ADDR] [-s DNS]
+
+    Forward DNS requests.
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -b BIND_ADDR, --local_address BIND_ADDR
+                            address that listens, default: 127.0.0.1
+      -s DNS, --dns DNS     DNS server to use, default: 8.8.8.8
+
 License
 -------
 
