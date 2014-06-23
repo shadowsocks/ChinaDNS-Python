@@ -103,6 +103,8 @@ class UDPDNSRelay(DNSRelay):
         self._local_sock.close()
         self._remote_sock.close()
         self._create_sockets()
+        self._loop.add(self._local_sock, eventloop.POLL_IN)
+        self._loop.add(self._remote_sock, eventloop.POLL_IN)
 
     def add_to_loop(self, loop):
         DNSRelay.add_to_loop(self, loop)
