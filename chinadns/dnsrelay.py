@@ -22,9 +22,11 @@
 # SOFTWARE.
 
 import sys
+import os
 import time
 import socket
 import errno
+import struct
 import logging
 
 info = sys.version_info
@@ -62,12 +64,55 @@ class DNSRelay(object):
 
         self._local_addr = (config['local_address'], 53)
         self._remote_addr = (config['dns'], 53)
+        self._hosts = {}
+        self._parse_hosts()
 
     def add_to_loop(self, loop):
         if self._loop:
             raise Exception('already add to loop')
         self._loop = loop
         loop.add_handler(self.handle_events)
+
+    def _parse_hosts(self):
+        etc_path = '/etc/hosts'
+        if os.environ.__contains__('WINDIR'):
+            etc_path = os.environ['WINDIR'] + '/system32/drivers/etc/hosts'
+        try:
+            with open(etc_path, 'rb') as f:
+                for line in f.readlines():
+                    line = line.strip()
+                    parts = line.split()
+                    if len(parts) >= 2:
+                        ip = parts[0]
+                        if asyncdns.is_ip(ip):
+                            for i in xrange(1, len(parts)):
+                                hostname = parts[i]
+                                if hostname:
+                                    self._hosts[hostname] = ip
+        except IOError:
+            pass
+
+    @staticmethod
+    def build_response(request, ip):
+        addrs = socket.getaddrinfo(ip, 0, 0, 0, 0)
+        if not addrs:
+            return None
+        af, socktype, proto, canonname, sa = addrs[0]
+        header = struct.unpack('!HBBHHHH', request[:12])
+        header = struct.pack('!HBBHHHH', header[0], 0x80 | header[1], 0x80, 1,
+                             1, 0, 0)
+        if af == socket.AF_INET:
+            qtype = asyncdns.QTYPE_A
+        else:
+            qtype = asyncdns.QTYPE_AAAA
+        addr = socket.inet_pton(af, ip)
+        question = request[12:]
+
+        # for hostname compression
+        answer = struct.pack('!H', ((128 + 64) << 8 | 12)) + \
+            struct.pack('!HHiH', qtype, asyncdns.QCLASS_IN, 300,
+                        len(addr)) + addr
+        return header + question + answer
 
     def handle_events(self, events):
         pass
@@ -126,9 +171,16 @@ class UDPDNSRelay(DNSRelay):
             try:
                 req_id = header[0]
                 req = asyncdns.parse_response(data)
+                logging.info('request %s', req.hostname)
+                if req.hostname in self._hosts:
+                    response = self.build_response(data,
+                                                   self._hosts[req.hostname])
+                    if response:
+                        logging.info('%s hit /etc/hosts', req.hostname)
+                        self._local_sock.sendto(response, addr)
+                        return
                 self._id_to_addr[req_id] = addr
                 self._remote_sock.sendto(data, self._remote_addr)
-                logging.info('request %s', req.hostname)
             except Exception as e:
                 import traceback
 
