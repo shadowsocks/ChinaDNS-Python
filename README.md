@@ -3,7 +3,7 @@ ChinaDNS
 
 [![PyPI version]][PyPI] [![Build Status]][Travis CI]
 
-A DNS forwarder that ignores incorrect(you know it) responses.
+A DNS forwarder that ignores incorrect(you knew it) responses.
 
 Install
 -------
