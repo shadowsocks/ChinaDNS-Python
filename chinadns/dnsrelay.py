@@ -62,7 +62,7 @@ class DNSRelay(object):
         self._config = config
         self._last_time = time.time()
 
-        self._local_addr = (config['local_address'], 53)
+        self._local_addr = (config['local_address'], config['local_port'])
         self._remote_addr = (config['dns'], 53)
         self._hosts = {}
         self._parse_hosts()
@@ -350,13 +350,16 @@ def main():
     parser.add_argument('-b', '--local_address', metavar='BIND_ADDR', type=str,
                         help='address that listens, default: 127.0.0.1',
                         default='127.0.0.1')
+    parser.add_argument('-p', '--local_port', metavar='BIND_PORT', type=int,
+                        help='port that listens, default: 53', default=53)
     parser.add_argument('-s', '--dns', metavar='DNS', type=str,
                         help='DNS server to use, default: 8.8.8.8',
                         default='8.8.8.8')
 
     config = vars(parser.parse_args())
 
-    logging.info("starting dns at %s:%d" % (config['local_address'], 53))
+    logging.info("starting dns at %s:%d",
+                 config['local_address'], config['local_port'])
 
     loop = eventloop.EventLoop()
 
