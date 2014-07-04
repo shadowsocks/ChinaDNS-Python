@@ -19,7 +19,8 @@ Install
 Usage
 -----
 
-Run `sudo chinadns` on your local machine. ChinaDNS creates a DNS server at `127.0.0.1:53`.
+Run `sudo chinadns` on your local machine. ChinaDNS creates a DNS server at
+`127.0.0.1:53`.
 
 Set your DNS to 127.0.0.1 and you're done.
 
@@ -47,7 +48,7 @@ Advanced
 --------
 
     $ chinadns -h
-    usage: chinadns [-h] [-b BIND_ADDR] [-s DNS]
+    usage: dnsrelay.py [-h] [-b BIND_ADDR] [-p BIND_PORT] [-s DNS]
 
     Forward DNS requests.
 
@@ -55,8 +56,9 @@ Advanced
       -h, --help            show this help message and exit
       -b BIND_ADDR, --local_address BIND_ADDR
                             address that listens, default: 127.0.0.1
+      -p BIND_PORT, --local_port BIND_PORT
+                            port that listens, default: 53
       -s DNS, --dns DNS     DNS server to use, default: 8.8.8.8
-
 
 License
 -------
