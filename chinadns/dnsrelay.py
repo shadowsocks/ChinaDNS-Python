@@ -63,7 +63,10 @@ class DNSRelay(object):
         self._last_time = time.time()
 
         self._local_addr = (config['local_address'], config['local_port'])
-        self._remote_addr = (config['dns'], 53)
+        self._remote_addrs = []
+        for addr in config['dns'].split(','):
+            self._remote_addrs.append((addr.strip(), 53))
+        self._remote_addr = self._remote_addrs[-1]
         self._hosts = {}
         self._parse_hosts()
 
@@ -180,7 +183,8 @@ class UDPDNSRelay(DNSRelay):
                         self._local_sock.sendto(response, addr)
                         return
                 self._id_to_addr[req_id] = addr
-                self._remote_sock.sendto(data, self._remote_addr)
+                for remote_addr in self._remote_addrs:
+                    self._remote_sock.sendto(data, remote_addr)
             except Exception as e:
                 import traceback
 
@@ -202,7 +206,7 @@ class UDPDNSRelay(DNSRelay):
                 if header:
                     req_id = header[0]
                     res = asyncdns.parse_response(data)
-                    logging.info('response %s', res)
+                    logging.info('response from %s %s', addr[0], res)
                     addr = self._id_to_addr.get(req_id, None)
                     if addr:
                         for answer in res.answers:
@@ -353,8 +357,9 @@ def main():
     parser.add_argument('-p', '--local_port', metavar='BIND_PORT', type=int,
                         help='port that listens, default: 53', default=53)
     parser.add_argument('-s', '--dns', metavar='DNS', type=str,
-                        help='DNS server to use, default: 8.8.8.8',
-                        default='8.8.8.8')
+                        help='DNS server to use, default: '
+                             '114.114.114.114,208.67.222.222,8.8.8.8',
+                        default='114.114.114.114,208.67.222.222,8.8.8.8')
 
     config = vars(parser.parse_args())
 

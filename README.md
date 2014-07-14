@@ -47,7 +47,6 @@ Set your DNS to 127.0.0.1 and you're done.
 Advanced
 --------
 
-    $ chinadns -h
     usage: dnsrelay.py [-h] [-b BIND_ADDR] [-p BIND_PORT] [-s DNS]
 
     Forward DNS requests.
@@ -58,7 +57,8 @@ Advanced
                             address that listens, default: 127.0.0.1
       -p BIND_PORT, --local_port BIND_PORT
                             port that listens, default: 53
-      -s DNS, --dns DNS     DNS server to use, default: 8.8.8.8
+      -s DNS, --dns DNS     DNS server to use, default:
+                            114.114.114.114,208.67.222.222,8.8.8.8
 
 License
 -------
