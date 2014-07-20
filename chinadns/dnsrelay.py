@@ -42,6 +42,8 @@ BUF_SIZE = 16384
 
 CACHE_TIMEOUT = 10
 
+EMPTY_RESULT_DELAY = 4
+
 GFW_LIST = set(["74.125.127.102", "74.125.155.102", "74.125.39.102",
                 "74.125.39.113", "209.85.229.138", "128.121.126.139",
                 "159.106.121.75", "169.132.13.103", "192.67.198.6",
@@ -129,6 +131,7 @@ class UDPDNSRelay(DNSRelay):
         self._local_sock = None
         self._remote_sock = None
         self._create_sockets()
+        self._pending_responses = []
 
     def _create_sockets(self):
         sockets = []
@@ -212,6 +215,13 @@ class UDPDNSRelay(DNSRelay):
                         for answer in res.answers:
                             if answer and answer[0] in GFW_LIST:
                                 return
+                        if not res.answers:
+                            # delay empty results
+                            def _send_later():
+                                self._local_sock.sendto(data, addr)
+                            self._pending_responses.append((time.time(),
+                                                            _send_later))
+                            return
                         self._local_sock.sendto(data, addr)
                         del self._id_to_addr[req_id]
             except Exception as e:
@@ -231,6 +241,15 @@ class UDPDNSRelay(DNSRelay):
         now = time.time()
         if now - self._last_time > CACHE_TIMEOUT / 2:
             self._id_to_addr.sweep()
+        i = 0
+        for pending_response in self._pending_responses:
+            ts, cb = pending_response
+            if now - ts > EMPTY_RESULT_DELAY:
+                cb()
+                i += 1
+            else:
+                break
+        self._pending_responses = self._pending_responses[i:]
 
 
 class TCPDNSRelay(DNSRelay):
