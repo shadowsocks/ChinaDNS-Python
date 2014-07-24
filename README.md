@@ -47,7 +47,7 @@ Set your DNS to 127.0.0.1 and you're done.
 Advanced
 --------
 
-    usage: dnsrelay.py [-h] [-b BIND_ADDR] [-p BIND_PORT] [-s DNS]
+    usage: chinadns [-h] [-b BIND_ADDR] [-p BIND_PORT] [-s DNS]
 
     Forward DNS requests.
 
