@@ -16,6 +16,10 @@ Install
 
     * [Download]
 
+* OpenWRT
+
+    * [ChinaDNS-C]
+
 Usage
 -----
 
@@ -72,6 +76,7 @@ Mailing list: http://groups.google.com/group/shadowsocks
 
 
 [Build Status]:    https://img.shields.io/travis/clowwindy/ChinaDNS/master.svg?style=flat
+[ChinaDNS-C]:      https://github.com/clowwindy/ChinaDNS-C
 [Download]:        http://sourceforge.net/projects/shadowsocksgui/files/dist/ChinaDNS-win32-0.1.11.rar/download
 [Issue Tracker]:   https://github.com/clowwindy/ChinaDNS/issues?state=open
 [PyPI]:            https://pypi.python.org/pypi/chinadns
