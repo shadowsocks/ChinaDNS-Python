@@ -379,8 +379,16 @@ def main():
                         help='DNS server to use, default: '
                              '114.114.114.114,208.67.222.222,8.8.8.8',
                         default='114.114.114.114,208.67.222.222,8.8.8.8')
+    parser.add_argument('-l', '--ip_list', metavar='IP_LIST_FILE', type=str,
+                        default=None)
 
     config = vars(parser.parse_args())
+
+    if config['ip_list']:
+        logging.info('loading IP list from %s', config['ip_list'])
+        with open(config['ip_list'], 'rb') as f:
+            global GFW_LIST
+            GFW_LIST = set(f.readlines())
 
     logging.info("starting dns at %s:%d",
                  config['local_address'], config['local_port'])
