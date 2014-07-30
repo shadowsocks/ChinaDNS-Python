@@ -75,7 +75,7 @@ Please visit [Issue Tracker]
 Mailing list: http://groups.google.com/group/shadowsocks
 
 
-[bad IPs]:         https://github.com/clowwindy/ChinaDNS-C/blob/master/iplist.txt
+[bad IPs]:         https://github.com/clowwindy/ChinaDNS/blob/master/iplist.txt
 [Build Status]:    https://img.shields.io/travis/clowwindy/ChinaDNS/master.svg?style=flat
 [ChinaDNS-C]:      https://github.com/clowwindy/ChinaDNS-C
 [Download]:        https://sourceforge.net/projects/chinadns/files/dist/
