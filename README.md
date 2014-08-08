@@ -3,7 +3,7 @@ ChinaDNS
 
 [![PyPI version]][PyPI] [![Build Status]][Travis CI]
 
-A DNS forwarder that filters [bad IPs]. Quite useful if you live in China.
+Fix [weird things] with DNS in China.
 
 Install
 -------
@@ -84,3 +84,4 @@ Mailing list: http://groups.google.com/group/shadowsocks
 [PyPI version]:    https://img.shields.io/pypi/v/chinadns.svg?style=flat
 [Shadowsocks]:     https://github.com/clowwindy/shadowsocks
 [Travis CI]:       https://travis-ci.org/clowwindy/ChinaDNS
+[weird things]:    http://en.wikipedia.org/wiki/Great_Firewall_of_China#Blocking_methods
