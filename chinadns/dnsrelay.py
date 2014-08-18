@@ -67,7 +67,11 @@ class DNSRelay(object):
         self._local_addr = (config['local_address'], config['local_port'])
         self._remote_addrs = []
         for addr in config['dns'].split(','):
-            self._remote_addrs.append((addr.strip(), 53))
+            if ':' in addr:
+                addr, port = addr.split(':')
+                self._remote_addrs.append((addr.strip(), int(port.strip())))
+            else:
+                self._remote_addrs.append((addr.strip(), 53))
         self._remote_addr = self._remote_addrs[-1]
         self._hosts = {}
         self._parse_hosts()
