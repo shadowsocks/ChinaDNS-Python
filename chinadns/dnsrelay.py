@@ -67,11 +67,10 @@ class DNSRelay(object):
         self._local_addr = (config['local_address'], config['local_port'])
         self._remote_addrs = []
         for addr in config['dns'].split(','):
-            if ':' in addr:
-                addr, port = addr.split(':')
-                self._remote_addrs.append((addr.strip(), int(port.strip())))
-            else:
-                self._remote_addrs.append((addr.strip(), 53))
+            parts = addr.strip().rsplit(':', 1)
+            host = parts[0]
+            port = int(parts[1]) if len(parts) == 2 else 53
+            self._remote_addrs.append((host, port))
         self._remote_addr = self._remote_addrs[-1]
         self._hosts = {}
         self._parse_hosts()
@@ -213,7 +212,8 @@ class UDPDNSRelay(DNSRelay):
                 if header:
                     req_id = header[0]
                     res = asyncdns.parse_response(data)
-                    logging.info('response from %s %s', addr[0], res)
+                    logging.info('response from %s:%d %s', addr[0], addr[1],
+                                 res)
                     addr = self._id_to_addr.get(req_id, None)
                     if addr:
                         for answer in res.answers:
