@@ -145,6 +145,7 @@ class UDPDNSRelay(DNSRelay):
                 raise Exception("can't get addrinfo for %s:%d" % addr)
             af, socktype, proto, canonname, sa = addrs[0]
             sock = socket.socket(af, socktype, proto)
+            sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             sock.setblocking(False)
             sockets.append(sock)
         self._local_sock, self._remote_sock = sockets
