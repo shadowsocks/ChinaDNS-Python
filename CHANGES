@@ -1,3 +1,9 @@
+0.2.1
+- Fix Windows 10048
+
+0.2.0
+- Support addr:port
+
 0.1.11
 - Fix dig txt youtube.com
 
