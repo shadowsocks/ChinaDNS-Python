@@ -6,7 +6,7 @@ with open('README.rst') as f:
 
 setup(
     name="chinadns",
-    version="0.2.1",
+    version="0.2.2",
     license='MIT',
     description="A DNS forwarder that ignore incorrect responses",
     author='clowwindy',
@@ -17,7 +17,7 @@ setup(
         'chinadns': ['README.rst', 'LICENSE', 'config.json']
     },
     install_requires=[
-        'shadowsocks==2.0.11'
+        'shadowsocks>=2.2'
     ],
     entry_points="""
     [console_scripts]
