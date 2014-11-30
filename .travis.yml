@@ -5,8 +5,10 @@ python:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq dnsutils build-essential
-  - pip install shadowsocks
+  - pip install shadowsocks pep8 pyflakes
 script:
+  - pep8 .
+  - pyflakes .
   - python test.py -c tests/facebook.com
   - python test.py -c tests/google.com
   - python test.py -c tests/twitter.com

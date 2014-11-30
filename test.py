@@ -22,7 +22,7 @@ try:
         r, w, e = select.select(fdset, [], fdset)
         if e:
             break
-            
+
         for fd in r:
             line = fd.readline()
             sys.stdout.write(line)
@@ -32,7 +32,7 @@ try:
         if local_ready and p2 is None:
             p2 = Popen(dig_cmd.split(), shell=False, bufsize=0, close_fds=True)
             break
-            
+
     if p2 is not None:
         r = p2.wait()
         if r == 0:
@@ -45,5 +45,5 @@ finally:
             os.kill(p.pid, signal.SIGTERM)
         except OSError:
             pass
-   
+
 sys.exit(-1)
