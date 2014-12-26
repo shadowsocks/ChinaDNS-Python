@@ -6,7 +6,7 @@ with open('README.rst') as f:
 
 setup(
     name="chinadns",
-    version="0.2.2",
+    version="0.2.3",
     license='MIT',
     description="A DNS forwarder that ignore incorrect responses",
     author='clowwindy',
