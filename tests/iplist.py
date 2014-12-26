@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import os
 from subprocess import Popen, PIPE
 
 if __name__ == '__main__':
