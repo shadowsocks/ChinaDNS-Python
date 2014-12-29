@@ -5,6 +5,8 @@ ChinaDNS
 
 Fix [weird things] with DNS in China.
 
+Report new fake IPs [here][Fake IP].
+
 Install
 -------
 
@@ -79,6 +81,7 @@ Mailing list: http://groups.google.com/group/shadowsocks
 [Build Status]:    https://img.shields.io/travis/clowwindy/ChinaDNS/master.svg?style=flat
 [ChinaDNS-C]:      https://github.com/clowwindy/ChinaDNS-C
 [Download]:        https://sourceforge.net/projects/chinadns/files/dist/
+[Fake IP]:              https://github.com/clowwindy/ChinaDNS-C/issues/42
 [Issue Tracker]:   https://github.com/clowwindy/ChinaDNS/issues?state=open
 [PyPI]:            https://pypi.python.org/pypi/chinadns
 [PyPI version]:    https://img.shields.io/pypi/v/chinadns.svg?style=flat
