@@ -5,6 +5,9 @@ ChinaDNS
 
 Fix [weird things] with DNS in China.
 
+[ChinaDNS-C] is more advanced and well maintained. Please use ChinaDNS-C
+instead on Linux/Unix.
+
 Install
 -------
 
