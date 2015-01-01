@@ -12,7 +12,7 @@ Install
 
 * Linux / OS X
 
-    * ```pip install chinadns```
+    * [ChinaDNS-C]
 
 * Windows
 
