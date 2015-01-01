@@ -5,8 +5,6 @@ ChinaDNS
 
 Fix [weird things] with DNS in China.
 
-Report new fake IPs [here][Fake IP].
-
 Install
 -------
 
