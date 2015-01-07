@@ -1,5 +1,5 @@
-ChinaDNS
-=========
+ChinaDNS-Python
+===============
 
 [![PyPI version]][PyPI] [![Build Status]][Travis CI]
 
