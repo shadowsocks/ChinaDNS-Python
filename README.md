@@ -78,14 +78,14 @@ Please visit [Issue Tracker]
 Mailing list: http://groups.google.com/group/shadowsocks
 
 
-[bad IPs]:         https://github.com/clowwindy/ChinaDNS/blob/master/iplist.txt
-[Build Status]:    https://img.shields.io/travis/clowwindy/ChinaDNS/master.svg?style=flat
-[ChinaDNS-C]:      https://github.com/clowwindy/ChinaDNS-C
+[bad IPs]:         https://github.com/clowwindy/ChinaDNS-Python/blob/master/iplist.txt
+[Build Status]:    https://img.shields.io/travis/clowwindy/ChinaDNS-Python/master.svg?style=flat
+[ChinaDNS-C]:      https://github.com/clowwindy/ChinaDNS
 [Download]:        https://sourceforge.net/projects/chinadns/files/dist/
-[Fake IP]:              https://github.com/clowwindy/ChinaDNS-C/issues/42
-[Issue Tracker]:   https://github.com/clowwindy/ChinaDNS/issues?state=open
+[Fake IP]:              https://github.com/clowwindy/ChinaDNS/issues/42
+[Issue Tracker]:   https://github.com/clowwindy/ChinaDNS-Python/issues?state=open
 [PyPI]:            https://pypi.python.org/pypi/chinadns
 [PyPI version]:    https://img.shields.io/pypi/v/chinadns.svg?style=flat
 [Shadowsocks]:     https://github.com/clowwindy/shadowsocks
-[Travis CI]:       https://travis-ci.org/clowwindy/ChinaDNS
+[Travis CI]:       https://travis-ci.org/clowwindy/ChinaDNS-Python
 [weird things]:    http://en.wikipedia.org/wiki/Great_Firewall_of_China#Blocking_methods
