@@ -5,8 +5,12 @@ ChinaDNS-Python
 
 Fix [weird things] with DNS in China.
 
-[ChinaDNS-C] is more advanced and well maintained. Please use ChinaDNS-C
-instead on Linux/Unix.
+[ChinaDNS-C] is more advanced and well maintained. Please use it instead.
+
+Actually, I'm not working on the Python version anymore.
+New maintainers are welcome. Just send several pull requests and let
+me know. You can begin with some features that have already
+been implemented in ChinaDNS-C.
 
 Install
 -------
